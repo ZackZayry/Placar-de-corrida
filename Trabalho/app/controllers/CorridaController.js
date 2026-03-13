@@ -74,7 +74,7 @@ class CorridaController {
             });
         }
 
-        this.notificador.notificar(this.corrida.obterDados());
+        this.notificador.broadcast(this.corrida.obterDados());
 
         res.json({ mensagem: "Corrida removida" });
     }
