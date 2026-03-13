@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏁 Race Live - Sistema de Corridas</title>
+
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <h1>🏁 Race Live</h1>
+        <p>Sistema de gerenciamento e acompanhamento de corridas em tempo real</p>
+    </div>
+</header>
+
+<main class="container">
+
+<!-- ================= TELAS ================= -->
+<section class="features">
+
+    <!-- PAINEL -->
+    <div class="feature-card" onclick="window.location.href='/painel'">
+        <div class="feature-icon">🎮</div>
+        <h3>Painel de Controle</h3>
+        <p>Crie corridas e controle voltas dos corredores.</p>
+        <a href="/painel">Abrir painel →</a>
+    </div>
+
+    <!-- PLACAR -->
+    <div class="feature-card" onclick="window.location.href='/placar'">
+        <div class="feature-icon">🏆</div>
+        <h3>Placar ao Vivo</h3>
+        <p>Acompanhe posições e ranking atualizados em tempo real.</p>
+        <a href="/placar">Ver placar →</a>
+    </div>
+
+    <!-- MONITOR WS -->
+    <div class="feature-card" onclick="window.location.href='/placar-ws'">
+        <div class="feature-icon">📡</div>
+        <h3>Monitor WebSocket</h3>
+        <p>Visualização técnica das mensagens enviadas pelo servidor.</p>
+        <a href="/placar-ws">Monitorar →</a>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div class="feature-card" onclick="window.location.href='/corridas'">
+        <div class="feature-icon">📊</div>
+        <h3>Histórico de Corridas</h3>
+        <p>Consulte resultados e classificações anteriores.</p>
+        <a href="/corridas">Abrir histórico →</a>
+    </div>
+
+    <!-- API -->
+    <div class="feature-card" onclick="window.location.href='/api/placar'">
+        <div class="feature-icon">📦</div>
+        <h3>API / Dados JSON</h3>
+        <p>Visualize os dados crus utilizados pelo sistema.</p>
+        <a href="/api/placar">Ver JSON →</a>
+    </div>
+
+</section>
+
+<!-- ================= SOBRE ================= -->
+<section class="info-section">
+    <h2>Sobre o Sistema</h2>
+
+    <p style="margin-bottom:20px; color:#2c3e50;">
+        O <strong>Race Live</strong> demonstra comunicação em tempo real utilizando
+        WebSocket e arquitetura MVC para sincronizar múltiplos clientes simultaneamente.
+    </p>
+
+    <div class="info-grid">
+
+        <div class="info-item">
+            <strong>📡 WebSocket</strong>
+            <p>Atualização instantânea do placar para todos os usuários conectados.</p>
+        </div>
+
+        <div class="info-item">
+            <strong>🏁 Tempo Real</strong>
+            <p>Ranking recalculado automaticamente a cada nova volta registrada.</p>
+        </div>
+
+        <div class="info-item">
+            <strong>🧱 Arquitetura MVC</strong>
+            <p>Separação entre Models, Controllers, Rotas e Views.</p>
+        </div>
+
+        <div class="info-item">
+            <strong>💾 Persistência</strong>
+            <p>Corridas armazenadas em JSON com sincronização automática.</p>
+        </div>
+
+        <div class="info-item">
+            <strong>⚡ Baixa Latência</strong>
+            <p>Broadcast imediato usando WebSocket Server.</p>
+        </div>
+
+        <div class="info-item">
+            <strong>📱 Responsivo</strong>
+            <p>Interface adaptável para desktop e dispositivos móveis.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ================= FUNCIONALIDADES ================= -->
+<section>
+    <h2>Funcionalidades</h2>
+
+    <div style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+        gap:15px;
+        margin-top:20px;">
+
+        <div class="card">
+            <div class="card-header">🏁 Criar Corrida</div>
+            <p>Inicie rapidamente uma nova corrida.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">🏎️ Registrar Voltas</div>
+            <p>Atualize posições dinamicamente pelo painel.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">🏆 Ranking Automático</div>
+            <p>Classificação recalculada automaticamente.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">📡 Sincronização Live</div>
+            <p>Todos os clientes recebem atualização imediata.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">📊 Histórico</div>
+            <p>Consulta completa das corridas anteriores.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">🔌 API REST</div>
+            <p>Dados acessíveis via endpoints JSON.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ================= TECNOLOGIAS ================= -->
+<section style="background:#ecf0f1; text-align:center; padding:40px 30px;">
+    <h2 style="border:none; margin-bottom:20px;">Tecnologias Utilizadas</h2>
+
+    <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:10px;">
+        <span class="badge">Node.js</span>
+        <span class="badge">Express</span>
+        <span class="badge">WebSocket</span>
+        <span class="badge">MVC</span>
+        <span class="badge">REST API</span>
+        <span class="badge">HTML5</span>
+        <span class="badge">CSS3</span>
+        <span class="badge">JSON</span>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p><strong>Race Live</strong> | Sistema de Corridas em Tempo Real</p>
+    <p>© 2026 - Projeto Acadêmico</p>
+</footer>
+
+</body>
+</html>

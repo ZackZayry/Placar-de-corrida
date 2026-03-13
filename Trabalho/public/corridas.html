@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Corridas</title>
+
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <h1>🏁 Histórico de Corridas</h1>
+    <p>Visualize resultados e classificações anteriores</p>
+  </div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/corridas" style="background:#3498db;color:white;">Corridas</a></li>
+    <li><a href="/painel">Painel Ao Vivo</a></li>
+    <li><a href="/placar-ws">WS Debug</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+
+  <section>
+
+    <div class="action-buttons" style="margin-bottom:30px;">
+      <button class="btn btn-primary" onclick="carregarCorridas()">🔄 Atualizar</button>
+      <button class="btn btn-success" onclick="window.open('/placar','_blank')">
+        📊 Ver JSON
+      </button>
+    </div>
+
+    <div id="loading" class="loading" style="display:none;">
+      <div class="spinner"></div>
+      <p>Carregando corridas...</p>
+    </div>
+
+    <div id="content"></div>
+
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Race Live</strong> | Histórico de Corridas</p>
+  <p>© 2026 - Sistema de Corrida em Tempo Real</p>
+</footer>
+
+<script>
+
+/* ======================================
+   CARREGAR HISTÓRICO DE CORRIDAS
+====================================== */
+async function carregarCorridas() {
+
+  const loading = document.getElementById("loading");
+  const content = document.getElementById("content");
+
+  loading.style.display = "block";
+  content.innerHTML = "";
+
+  try {
+
+    const res = await fetch('/corridas');
+    const dados = await res.json();
+
+    loading.style.display = 'none';
+
+    if (!dados.corridas || dados.corridas.length === 0) {
+      content.innerHTML = `
+        <div class="empty-state">
+          <h2>📭 Nenhuma corrida registrada</h2>
+          <p>Inicie uma corrida pelo painel de controle.</p>
+        </div>
+      `;
+      return;
+    }
+
+    // ordenar da mais recente
+    const corridasOrdenadas = [...dados.corridas]
+      .sort((a,b) => new Date(b.data) - new Date(a.data));
+
+    let html = "";
+
+    corridasOrdenadas.forEach(corrida => {
+
+      const ranking = [...corrida.corredores]
+        .sort((a,b) => b.voltas - a.voltas);
+
+      const dataFormatada = new Date(corrida.data)
+        .toLocaleDateString("pt-BR", {
+          day:"2-digit",
+          month:"long",
+          year:"numeric"
+        });
+
+      let rankingHtml = `<div class="presencas-grid">`;
+
+      ranking.forEach((c,index) => {
+        rankingHtml += `
+          <div class="presenca-item">
+            ${index+1}º — ${c.nome} (${c.voltas} voltas)
+          </div>
+        `;
+      });
+
+      rankingHtml += `</div>`;
+
+      html += `
+        <div class="aula-item">
+
+          <div class="aula-header">
+            <div class="aula-data">🏁 ${dataFormatada}</div>
+            <div class="aula-stats">
+              <span class="stat-badge">
+                Corredores: ${ranking.length}
+              </span>
+            </div>
+          </div>
+
+          <div class="presencas-container">
+            <h4 style="margin-bottom:10px;">Classificação Final</h4>
+            ${rankingHtml}
+          </div>
+
+          <div style="margin-top:15px;">
+            <button class="btn btn-danger"
+              onclick="deletarCorrida('${corrida.data}')">
+              🗑️ Remover
+            </button>
+          </div>
+
+        </div>
+      `;
+    });
+
+    content.innerHTML = html;
+
+  } catch(error) {
+
+    loading.style.display = "none";
+
+    content.innerHTML = `
+      <div class="alert alert-danger">
+        Erro ao carregar corridas: ${error.message}
+      </div>
+    `;
+  }
+}
+
+
+/* ======================================
+   DELETAR CORRIDA
+====================================== */
+async function deletarCorrida(data) {
+
+  if (!confirm("Deseja remover esta corrida?")) return;
+
+  try {
+
+    const res = await fetch(`/corrida/${data}`, {
+      method: "DELETE"
+    });
+
+    if (res.ok) {
+      carregarCorridas();
+    } else {
+      alert("Erro ao remover corrida");
+    }
+
+  } catch(e) {
+    alert("Erro: " + e.message);
+  }
+}
+
+/* ======================================
+   LOAD INICIAL
+====================================== */
+window.addEventListener("load", carregarCorridas);
+
+</script>
+
+</body>
+</html>

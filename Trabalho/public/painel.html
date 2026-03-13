@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Controle</title>
+
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <h1>🎮 Painel de Corridas</h1>
+    <p>Gerencie corridas e posições dos corredores em tempo real</p>
+  </div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/corridas">Corridas</a></li>
+    <li><a href="/painel" style="background:#3498db;color:white;">Painel</a></li>
+    <li><a href="/placar-ws">Placar WS</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+
+<!-- ================= AÇÕES ================= -->
+<section>
+  <h2>Ações da Corrida</h2>
+
+  <div class="action-section">
+    <button class="btn btn-success" onclick="criarCorrida()">🏁 Criar Corrida</button>
+    <button class="btn btn-primary" onclick="iniciarCorrida()">▶️ Iniciar</button>
+    <button class="btn btn-danger" onclick="finalizarCorrida()">⛔ Finalizar</button>
+  </div>
+
+  <div class="stats" id="stats" style="display:none;">
+    <div class="stat-card">
+      <div class="stat-number" id="total">0</div>
+      <div class="stat-label">Corredores</div>
+    </div>
+
+    <div class="stat-card" style="border-left-color:#27ae60;">
+      <div class="stat-number" id="lider">-</div>
+      <div class="stat-label">Líder</div>
+    </div>
+
+    <div class="stat-card" style="border-left-color:#f39c12;">
+      <div class="stat-number" id="voltas">0</div>
+      <div class="stat-label">Maior Volta</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CORREDORES ================= -->
+<section>
+  <h2>Controle dos Corredores</h2>
+  <div id="lista"></div>
+</section>
+
+</main>
+
+<footer>
+  <p><strong>Race Live</strong> | Painel Administrativo</p>
+  <p>© 2026 - Sistema de Corridas em Tempo Real</p>
+</footer>
+
+<script>
+
+/* ===============================
+   CARREGAR ESTADO DA CORRIDA
+=============================== */
+async function carregar() {
+
+  const res = await fetch("/corrida-atual");
+  const dados = await res.json();
+
+  const lista = document.getElementById("lista");
+  const stats = document.getElementById("stats");
+
+  lista.innerHTML = "";
+
+  if (!dados.corridaAtual) {
+    lista.innerHTML = `
+      <div class="empty-state">
+        <h3>🚫 Nenhuma corrida criada</h3>
+        <p>Clique em "Criar Corrida" para iniciar.</p>
+      </div>
+    `;
+    stats.style.display = "none";
+    return;
+  }
+
+  const corredores = dados.corridaAtual.corredores;
+
+  let maiorVolta = 0;
+  let lider = "-";
+
+  corredores
+    .sort((a,b)=> b.voltas - a.voltas)
+    .forEach((corredor, index) => {
+
+      if (index === 0) lider = corredor.nome;
+      if (corredor.voltas > maiorVolta)
+        maiorVolta = corredor.voltas;
+
+      lista.innerHTML += `
+        <div class="aluno-item">
+          <div class="aluno-nome">
+            ${index+1}º — ${corredor.nome}
+          </div>
+
+          <span class="aluno-status presente">
+            ${corredor.voltas} voltas
+          </span>
+
+          <div class="aluno-buttons">
+            <button class="btn-small presente"
+              onclick="alterarVolta('${corredor.id}',1)">
+              ➕ Volta
+            </button>
+
+            <button class="btn-small ausente"
+              onclick="alterarVolta('${corredor.id}',-1)">
+              ➖ Volta
+            </button>
+          </div>
+        </div>
+      `;
+    });
+
+  document.getElementById("total").textContent = corredores.length;
+  document.getElementById("lider").textContent = lider;
+  document.getElementById("voltas").textContent = maiorVolta;
+
+  stats.style.display = "grid";
+}
+
+/* ===============================
+   AÇÕES
+=============================== */
+
+async function criarCorrida() {
+  await fetch("/nova-corrida", { method:"POST" });
+  carregar();
+}
+
+async function iniciarCorrida() {
+  await fetch("/iniciar", { method:"POST" });
+}
+
+async function finalizarCorrida() {
+
+  const data = new Date().toISOString().split("T")[0];
+
+  await fetch(`/corrida/${data}`, {
+    method: "DELETE"
+  });
+
+  carregar();
+}
+
+async function alterarVolta(id, valor) {
+
+  await fetch("/volta", {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      matricula: id,
+      voltas: valor
+    })
+  });
+
+  carregar();
+}
+
+/* =============================== */
+
+window.addEventListener("load", carregar);
+
+</script>
+
+</body>
+</html>

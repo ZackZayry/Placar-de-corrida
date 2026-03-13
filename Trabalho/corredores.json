@@ -1,0 +1,169 @@
+{
+  "turma": "Desenvolvimento Web II",
+  "treinador": "Fabricio Bizotto",
+  "corredores": [
+    {
+      "matricula": "1",
+      "nome": "ALESSANDRA CORRÊA"
+    },
+    {
+      "matricula": "2",
+      "nome": "BENVINDO DOMINGOS NGOLA DOS SANTOS"
+    },
+    {
+      "matricula": "3",
+      "nome": "CELIA CRISTINA SLONGO RAIZER"
+    },
+    {
+      "matricula": "4",
+      "nome": "EDUARDO FRITSCH SILVA"
+    },
+    {
+      "matricula": "5",
+      "nome": "EVERTON JOSÉ SERIGHELLI"
+    },
+    {
+      "matricula": "6",
+      "nome": "GABRIEL VINICIUS MATTANA"
+    },
+    {
+      "matricula": "7",
+      "nome": "GILBERTO RIBEIRO JUNIOR"
+    },
+    {
+      "matricula": "8",
+      "nome": "HYGOR ALBERT FERNANDES MARQUES"
+    },
+    {
+      "matricula": "9",
+      "nome": "ISADORA MENEZES COZENDEY"
+    },
+    {
+      "matricula": "10",
+      "nome": "JOAO PAULO KOWALSKI"
+    },
+    {
+      "matricula": "11",
+      "nome": "JULIA LUZZI BALDISSERA"
+    },
+    {
+      "matricula": "12",
+      "nome": "LUCAS DUARTE LOPES"
+    },
+    {
+      "matricula": "13",
+      "nome": "MATHEUS VARELA DE PAULA"
+    },
+    {
+      "matricula": "14",
+      "nome": "MIGUEL SANTOS DOICHE"
+    },
+    {
+      "matricula": "15",
+      "nome": "SAMUEL CASTILHO PEREIRA"
+    },
+    {
+      "matricula": "16",
+      "nome": "VICTOR CASAGRANDE"
+    },
+    {
+      "matricula": "17",
+      "nome": "WILLIGHAN TINELLI DE SOUZA"
+    },
+    {
+      "matricula": "18",
+      "nome": "YHASMIN THAYNA JUSTINO LARA"
+    },
+    {
+      "matricula": "19",
+      "nome": "ZACK ZAYRY GOMES DA SILVA"
+    }
+  ],
+  "corridas": [
+    {
+      "data": "2026-03-12",
+      "resultados": {}
+    },
+    {
+      "data": "2026-03-13",
+      "resultados": {
+        "1": {
+          "voltas": 5,
+          "posicao": 1
+        },
+        "2": {
+          "voltas": 0,
+          "posicao": 4
+        },
+        "3": {
+          "voltas": 0,
+          "posicao": 5
+        },
+        "4": {
+          "voltas": 0,
+          "posicao": 6
+        },
+        "5": {
+          "voltas": 0,
+          "posicao": 7
+        },
+        "6": {
+          "voltas": 0,
+          "posicao": 8
+        },
+        "7": {
+          "voltas": 0,
+          "posicao": 9
+        },
+        "8": {
+          "voltas": 0,
+          "posicao": 10
+        },
+        "9": {
+          "voltas": 0,
+          "posicao": 11
+        },
+        "10": {
+          "voltas": 0,
+          "posicao": 12
+        },
+        "11": {
+          "voltas": 0,
+          "posicao": 13
+        },
+        "12": {
+          "voltas": 0,
+          "posicao": 14
+        },
+        "13": {
+          "voltas": 0,
+          "posicao": 15
+        },
+        "14": {
+          "voltas": 0,
+          "posicao": 16
+        },
+        "15": {
+          "voltas": 0,
+          "posicao": 17
+        },
+        "16": {
+          "voltas": 0,
+          "posicao": 18
+        },
+        "17": {
+          "voltas": 0,
+          "posicao": 19
+        },
+        "18": {
+          "voltas": 1,
+          "posicao": 3
+        },
+        "19": {
+          "voltas": 4,
+          "posicao": 2
+        }
+      }
+    }
+  ]
+}
